@@ -8,12 +8,14 @@
 
     <h2>Kayıt Ol</h2>
 
-    <form>
-        <input type="text" placeholder="Kullanıcı Adı"><br><br>
-        <input type="email" placeholder="Email"><br><br>
-        <input type="password" placeholder="Şifre"><br><br>
-        <button type="submit">Kayıt Ol</button>
-    </form>
+    <form onsubmit="return validateForm()">
 
-</body>
-</html>
+        <input type="text" id="username" placeholder="Kullanıcı Adı"><br><br>
+
+        <input type="email" id="email" placeholder="Email"><br><br>
+
+        <input type="password" id="password" placeholder="Şifre"><br><br>
+
+        <button type="submit">Kayıt Ol</button>
+
+    </form>
