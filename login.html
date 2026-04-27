@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harcama Takip - Giriş Yap</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 400px;
+            min-width: 400px;
+            height: 520px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background-color: #0984e3;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 4px;
+        }
+
+        .btn-login:hover {
+            background-color: #074b83;
+        }
+
+        .success-text {
+            color: #00b894;
+            font-size: 13px;
+            text-align: center;
+            margin-top: 12px;
+            display: block;
+            height: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="login-card">
+            <h2>Giriş Yap</h2>
+            <p>Harcamalarını takip etmeye devam et.</p>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">E-posta</label>
+                    <input type="email" id="loginEmail" placeholder="ornek@mail.com">
+                    <span id="loginEmailError" class="error-text"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Şifre</label>
+                    <input type="password" id="loginPassword" placeholder="Şifrenizi girin">
+                    <span id="loginPasswordError" class="error-text"></span>
+                </div>
+
+                <button type="submit" class="btn-login">Giriş Yap</button>
+                <span id="loginSuccess" class="success-text"></span>
+            </form>
+
+            <p class="footer-text" style="margin-top: 20px;">Hesabın yok mu? <a href="register.html">Kayıt Ol</a></p>
+        </div>
+    </div>
+
+    <script src="js/login.js"></script>
+</body>
+</html>
