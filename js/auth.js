@@ -1,26 +1,43 @@
-<script>
-function validateForm() {
+document.getElementById('registerForm').addEventListener('submit', function(e) {
+    e.preventDefault();
 
-    let username = document.getElementById("username").value;
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
+    const username = document.getElementById('username');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
 
-    if (username.trim() === "" || email.trim() === "" || password.trim() === "") {
-        alert("Tüm alanlar doldurulmalı!");
-        return false;
+    let isValid = true;
+
+    // Temizlik: Önceki hataları ve sınıfları kaldır
+    [username, email, password].forEach(el => {
+        el.classList.remove('invalid');
+        document.getElementById(el.id + 'Error').textContent = "";
+    });
+
+    // Validasyon Kontrolleri [cite: 57]
+    if (username.value.trim().length < 3) {
+        showError(username, "Kullanıcı adı en az 3 karakter olmalı.");
+        isValid = false;
     }
 
-    if (!email.includes("@") || !email.includes(".")) {
-        alert("Geçerli email giriniz!");
-        return false;
+    if (!email.value.includes("@")) {
+        showError(email, "Geçerli bir e-posta adresi giriniz.");
+        isValid = false;
     }
 
-    if (password.length < 6) {
-        alert("Şifre en az 6 karakter olmalı!");
-        return false;
+    if (password.value.length < 6) {
+        showError(password, "Şifre en az 6 karakter olmalı.");
+        isValid = false;
     }
 
-    alert("Kayıt başarılı!");
-    return true;
+    if (isValid) {
+        console.log("Kayıt verisi hazır:", {user: username.value, mail: email.value});
+        // Başarılı kayıt sonrası login'e yönlendir 
+        alert("Kayıt başarılı! Giriş sayfasına yönlendiriliyorsunuz.");
+        window.location.href = "login.html"; 
+    }
+});
+
+function showError(input, message) {
+    input.classList.add('invalid');
+    document.getElementById(input.id + 'Error').textContent = message;
 }
-</script>
