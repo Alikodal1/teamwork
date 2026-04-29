@@ -37,7 +37,67 @@ document.getElementById('registerForm').addEventListener('submit', function(e) {
     }
 });
 
-function showError(input, message) {
-    input.classList.add('invalid');
-    document.getElementById(input.id + 'Error').textContent = message;
-}
+
+
+
+
+
+// 1. Elemanları Seçme
+const loginForm = document.getElementById('loginForm');
+const usernameInput = document.getElementById('username');
+const passwordInput = document.getElementById('login-password');
+
+// Hata mesajı gösterilecek alanlar
+const usernameError = document.getElementById('usernameError');
+const passwordError = document.getElementById('passwordError');
+
+// 2. Form Gönderildiğinde Çalışacak Olay
+loginForm.addEventListener('submit', function (e) {
+    // Sayfanın yenilenmesini durdur
+    e.preventDefault();
+
+    // Hata mesajlarını her denemede temizle
+    usernameError.textContent = "";
+    passwordError.textContent = "";
+
+    // Değerleri al (Boşlukları temizle)
+    const username = usernameInput.value.trim();
+    const password = passwordInput.value.trim();
+
+    let hasError = false;
+
+    // 3. Basit Boşluk Kontrolü
+    if (username === "") {
+        usernameError.textContent = "Kullanıcı adı boş bırakılamaz.";
+        hasError = true;
+    }
+    if (password === "") {
+        passwordError.textContent = "Şifre boş bırakılamaz.";
+        hasError = true;
+    }
+
+    if (hasError) return; // Hata varsa devam etme
+
+    // 4. LocalStorage'dan Kullanıcı Bilgilerini Kontrol Etme
+    // Arkadaşının Register sayfasında 'users' anahtarıyla bir dizi tuttuğunu varsayıyoruz.
+    // Eğer tek bir kullanıcı tutuyorsanız 'user' olarak değiştirebilirsiniz.
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+
+    // Kullanıcıyı bul
+    const foundUser = users.find(u => u.username === username && u.password === password);
+
+    if (foundUser) {
+        // GİRİŞ BAŞARILI
+        alert(`Hoş geldin, ${foundUser.username}!`);
+        
+        // Giriş yapan kullanıcıyı 'currentUser' olarak sakla (Giriş yapılmış mı kontrolü için)
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('activeUser', JSON.stringify(foundUser));
+
+        // Ana sayfaya (Harcama Takip ekranına) yönlendir
+        window.location.href = 'index.html';
+    } else {
+        // GİRİŞ BAŞARISIZ
+        passwordError.textContent = "Kullanıcı adı veya şifre hatalı!";
+    }
+});
