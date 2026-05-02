@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harcama Takip - Dashboard</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <i class="fa-solid fa-wallet"></i>
+                <span>Harcama Takip</span>
+            </div>
+            <ul class="nav-links">
+                <li class="active"><a href="#"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+                <li><a href="#"><i class="fa-solid fa-list-check"></i> Harcamalar</a></li>
+                <li><a href="#"><i class="fa-solid fa-tags"></i> Kategoriler</a></li>
+                <li><a href="#"><i class="fa-solid fa-pie-chart"></i> Analiz</a></li>
+            </ul>
+            <button class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap</button>
+        </nav>
+
+        <main class="content">
+            <header class="main-header">
+                <h2>Gösterge paneli</h2>
+                <div class="user-info">Merhaba, Kullanıcı! <i class="fa-solid fa-circle-user"></i></div>
+            </header>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fa-solid fa-coins"></i>
+                    <div class="stat-info">
+                        <span>Toplam Harcama</span>
+                        <strong>₺ 4,230.00</strong>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <div class="stat-info">
+                        <span>Bu Ayki Harcama</span>
+                        <strong>₺ 1,250.00</strong>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-vault"></i>
+                    <div class="stat-info">
+                        <span>Kalan Bütçe</span>
+                        <strong>₺ 1,770.00</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-grid">
+                <div class="table-container">
+                    <div class="table-header">
+                        <button class="btn-add"><i class="fa-solid fa-plus"></i> Harcama Ekle</button>
+                        <select class="filter-select">
+                            <option>Kategoriye Göre Filtrele</option>
+                            <option>Yemek</option>
+                            <option>Ulaşım</option>
+                        </select>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tarih</th>
+                                <th>Kategori</th>
+                                <th>Açıklama</th>
+                                <th>Tutar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>24.03.2026</td>
+                                <td>Ulaşım</td>
+                                <td>Otobüs Bileti</td>
+                                <td>₺ 50.00</td>
+                            </tr>
+                            <tr>
+                                <td>23.03.2026</td>
+                                <td>Alışveriş</td>
+                                <td>Market Alışverişi</td>
+                                <td>₺ 320.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="chart-card">
+                    <h3>Harcama Dağılımı</h3>
+                    <canvas id="expenseChart"></canvas>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
