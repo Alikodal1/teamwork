@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harcamalar - Harcama Takip</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="harcamalar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <i class="fa-solid fa-wallet"></i>
+                <span>Harcama Takip</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+                <li class="active"><a href="harcamalar.html"><i class="fa-solid fa-list-check"></i> Harcamalar</a></li>
+                <li><a href="#"><i class="fa-solid fa-tags"></i> Kategoriler</a></li>
+                <li><a href="#"><i class="fa-solid fa-pie-chart"></i> Analiz</a></li>
+            </ul>
+            <button class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap</button>
+        </nav>
+
+        <main class="content">
+            <header class="main-header">
+                <h2><i class="fa-solid fa-list-check"></i> Harcamalar</h2>
+                <div class="user-info">Merhaba, <span id="activeUsername">Kullanıcı</span>! <i class="fa-solid fa-circle-user"></i></div>
+            </header>
+
+            <!-- Özet Kartlar -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fa-solid fa-coins"></i>
+                    <div class="stat-info">
+                        <span>Toplam Harcama</span>
+                        <strong id="toplamHarcama">₺ 0.00</strong>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <div class="stat-info">
+                        <span>Bu Ayki Harcama</span>
+                        <strong id="buAykiHarcama">₺ 0.00</strong>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-receipt"></i>
+                    <div class="stat-info">
+                        <span>Toplam İşlem</span>
+                        <strong id="toplamIslem">0 Kayıt</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kontrol Paneli -->
+            <div class="expenses-container">
+                <div class="expenses-toolbar">
+                    <div class="toolbar-left">
+                        <button class="btn-add" id="btnYeniHarcama">
+                            <i class="fa-solid fa-plus"></i> Yeni Harcama
+                        </button>
+                        <div class="search-box">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="aramaInput" placeholder="Harcama ara...">
+                        </div>
+                    </div>
+                    <div class="toolbar-right">
+                        <select id="kategoriFilter" class="filter-select">
+                            <option value="">Tüm Kategoriler</option>
+                            <option value="Yemek">Yemek</option>
+                            <option value="Alışveriş">Alışveriş</option>
+                            <option value="Ulaşım">Ulaşım</option>
+                            <option value="Eğlence">Eğlence</option>
+                            <option value="Sağlık">Sağlık</option>
+                            <option value="Fatura">Fatura</option>
+                            <option value="Diğer">Diğer</option>
+                        </select>
+                        <select id="ayFilter" class="filter-select">
+                            <option value="">Tüm Aylar</option>
+                            <option value="1">Ocak</option>
+                            <option value="2">Şubat</option>
+                            <option value="3">Mart</option>
+                            <option value="4">Nisan</option>
+                            <option value="5">Mayıs</option>
+                            <option value="6">Haziran</option>
+                            <option value="7">Temmuz</option>
+                            <option value="8">Ağustos</option>
+                            <option value="9">Eylül</option>
+                            <option value="10">Ekim</option>
+                            <option value="11">Kasım</option>
+                            <option value="12">Aralık</option>
+                        </select>
+                        <select id="siralamaSelect" class="filter-select">
+                            <option value="tarih-desc">En Yeni</option>
+                            <option value="tarih-asc">En Eski</option>
+                            <option value="tutar-desc">En Yüksek Tutar</option>
+                            <option value="tutar-asc">En Düşük Tutar</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Tablo -->
+                <div class="table-wrapper">
+                    <table id="harcamalarTablosu">
+                        <thead>
+                            <tr>
+                                <th>Tarih</th>
+                                <th>Kategori</th>
+                                <th>Açıklama</th>
+                                <th>Tutar</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody id="harcamalarBody">
+                        </tbody>
+                    </table>
+                    <div id="bosKayit" class="empty-state" style="display:none;">
+                        <i class="fa-solid fa-folder-open"></i>
+                        <p>Henüz harcama kaydı yok.</p>
+                        <button class="btn-add" id="btnYeniHarcama2">
+                            <i class="fa-solid fa-plus"></i> İlk Harcamayı Ekle
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sayfalama -->
+                <div class="pagination" id="pagination"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal: Harcama Ekle / Düzenle -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modalBaslik"><i class="fa-solid fa-plus"></i> Yeni Harcama</h3>
+                <button class="modal-close" id="modalKapat"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="harcamaForm">
+                <input type="hidden" id="harcamaId">
+                <div class="form-group">
+                    <label>Tarih</label>
+                    <input type="date" id="harcamaTarih" required>
+                </div>
+                <div class="form-group">
+                    <label>Kategori</label>
+                    <select id="harcamaKategori" required>
+                        <option value="">Kategori seçin</option>
+                        <option value="Yemek">Yemek</option>
+                        <option value="Alışveriş">Alışveriş</option>
+                        <option value="Ulaşım">Ulaşım</option>
+                        <option value="Eğlence">Eğlence</option>
+                        <option value="Sağlık">Sağlık</option>
+                        <option value="Fatura">Fatura</option>
+                        <option value="Diğer">Diğer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Açıklama</label>
+                    <input type="text" id="harcamaAciklama" placeholder="Harcama açıklaması..." required>
+                </div>
+                <div class="form-group">
+                    <label>Tutar (₺)</label>
+                    <input type="number" id="harcamaTutar" placeholder="0.00" min="0.01" step="0.01" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" id="btnIptal">İptal</button>
+                    <button type="submit" class="btn-save"><i class="fa-solid fa-floppy-disk"></i> Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Silme Onayı -->
+    <div class="modal-overlay" id="silOnayOverlay">
+        <div class="modal modal-sm">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-triangle-exclamation"></i> Silme Onayı</h3>
+                <button class="modal-close" id="silOnayKapat"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p class="confirm-text">Bu harcamayı silmek istediğinizden emin misiniz?</p>
+            <div class="modal-actions">
+                <button type="button" class="btn-cancel" id="btnSilIptal">İptal</button>
+                <button type="button" class="btn-delete" id="btnSilOnayla"><i class="fa-solid fa-trash"></i> Evet, Sil</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/harcamalar.js"></script>
+</body>
+</html>
