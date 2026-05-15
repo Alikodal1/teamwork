@@ -1,10 +1,22 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Harcama Takip - Kayıt Ol</title>
-    <link rel="stylesheet" href="style.css"> </head>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+
+
+
+
+
+
+
+
 <body>
 
     <div class="register-container">
@@ -33,11 +45,60 @@
 
                 <button type="submit" class="btn-register">Kayıt Ol</button>
             </form>
-            
+
             <p class="footer-text">Zaten hesabın var mı? <a href="login.html">Giriş Yap</a></p>
         </div>
     </div>
 
-    <script src="js/auth.js"></script>
+    <script>
+
+        document.getElementById("registerForm")
+            .addEventListener("submit", async function (e) {
+
+                e.preventDefault();
+
+                const data = {
+
+                    kullaniciAdi:
+                        document.getElementById("username").value,
+
+                    email:
+                        document.getElementById("email").value,
+
+                    sifre:
+                        document.getElementById("password").value
+                };
+
+                try {
+
+                    const response =
+                        await fetch("http://localhost:3000/register", {
+
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+
+                            body: JSON.stringify(data)
+
+                        });
+
+                    const result = await response.text();
+
+                    alert(result);
+
+                } catch (err) {
+
+                    console.log(err);
+                    alert("Bağlantı hatası");
+
+                }
+
+            });
+
+    </script>
+
 </body>
+
 </html>
