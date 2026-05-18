@@ -1,0 +1,100 @@
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.main-header h2 {
+    margin: 0;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-color);
+}
+
+.main-header h2 i {
+    color: var(--primary-color);
+}
+
+.user-info {
+    color: #636e72;
+    font-size: 14px;
+}
+
+.kategori-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.kategori-kart {
+    background: white;
+    border-radius: 14px;
+    padding: 28px 24px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.kategori-kart:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.09);
+}
+
+.kategori-kart-ust {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.kategori-ikon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.kategori-bilgi h3 {
+    margin: 0 0 4px 0;
+    font-size: 16px;
+    color: var(--text-color);
+}
+
+.kategori-bilgi span {
+    font-size: 13px;
+    color: #b2bec3;
+}
+
+.kategori-tutar {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.progress-bar-bg {
+    background: #f1f2f6;
+    border-radius: 10px;
+    height: 8px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.6s ease;
+}
+
+.kategori-alt {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #b2bec3;
+}
