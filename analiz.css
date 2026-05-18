@@ -1,0 +1,193 @@
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.main-header h2 {
+    margin: 0;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-color);
+}
+
+.main-header h2 i {
+    color: var(--primary-color);
+}
+
+.user-info {
+    color: #636e72;
+    font-size: 14px;
+}
+
+.analiz-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+/* Grafik Kartı */
+.grafik-kart {
+    background: white;
+    border-radius: 14px;
+    padding: 28px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.grafik-kart h3,
+.ozet-kart h3 {
+    margin: 0 0 24px 0;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-color);
+}
+
+.grafik-kart h3 i,
+.ozet-kart h3 i {
+    color: var(--primary-color);
+}
+
+/* Donut ortalama yazı */
+.grafik-wrapper {
+    position: relative;
+    width: 260px;
+    height: 260px;
+    margin: 0 auto 24px auto;
+}
+
+.grafik-wrapper canvas {
+    position: relative;
+    z-index: 1;
+}
+
+.grafik-orta {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.grafik-orta span {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.grafik-orta small {
+    font-size: 12px;
+    color: #b2bec3;
+}
+
+/* Legend */
+.legend {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--text-color);
+}
+
+.legend-sol {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.legend-nokta {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.legend-yuzde {
+    font-weight: 700;
+    color: #636e72;
+    font-size: 13px;
+}
+
+/* Özet Listesi */
+.ozet-kolon {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ozet-kart {
+    background: white;
+    border-radius: 14px;
+    padding: 28px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.siralama-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid #f1f2f6;
+}
+
+.siralama-item:last-child {
+    border-bottom: none;
+}
+
+.siralama-no {
+    font-size: 18px;
+    font-weight: 700;
+    color: #dfe6e9;
+    width: 28px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.siralama-ikon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.siralama-bilgi {
+    flex: 1;
+}
+
+.siralama-bilgi strong {
+    display: block;
+    font-size: 14px;
+    color: var(--text-color);
+    margin-bottom: 4px;
+}
+
+.siralama-bilgi span {
+    font-size: 12px;
+    color: #b2bec3;
+}
+
+.siralama-tutar {
+    font-size: 15px;
+    font-weight: 700;
+    color: #e17055;
+    text-align: right;
+}

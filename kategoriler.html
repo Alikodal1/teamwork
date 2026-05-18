@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kategoriler - Harcama Takip</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="kategoriler.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <i class="fa-solid fa-wallet"></i>
+                <span>Harcama Takip</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+                <li><a href="harcamalar.html"><i class="fa-solid fa-list-check"></i> Harcamalar</a></li>
+                <li class="active"><a href="kategoriler.html"><i class="fa-solid fa-tags"></i> Kategoriler</a></li>
+                <li><a href="analiz.html"><i class="fa-solid fa-pie-chart"></i> Analiz</a></li>
+            </ul>
+            <button class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap</button>
+        </nav>
+
+        <main class="content">
+            <header class="main-header">
+                <h2><i class="fa-solid fa-tags"></i> Kategoriler</h2>
+                <div class="user-info">Merhaba, <span id="activeUsername">Kullanıcı</span>! <i class="fa-solid fa-circle-user"></i></div>
+            </header>
+
+            <div class="kategori-grid" id="kategoriGrid"></div>
+        </main>
+    </div>
+
+    <script src="js/kategoriler.js"></script>
+</body>
+</html>
