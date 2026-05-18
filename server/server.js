@@ -55,6 +55,57 @@ app.post("/register", async (req, res) => {
 });
 
 
+app.post("/login", async (req, res) => {     //login form isimli form gönderildiğinde bu kod çalışacak.
+
+    console.log("LOGIN İSTEĞİ GELDİ");
+
+    const { email, sifre } = req.body;
+
+    try {
+
+        const result = await sql.query`
+            SELECT * FROM Users
+            WHERE Email = ${email}
+        `;
+
+        if (result.recordset.length === 0) {
+
+            return res
+                .status(401)
+                .send("Kullanıcı bulunamadı");
+
+        }
+
+        const user = result.recordset[0];
+
+        const sifreDogruMu =
+            await bcrypt.compare(sifre, user.Sifre);
+
+        if (!sifreDogruMu) {
+
+            return res
+                .status(401)
+                .send("Şifre yanlış");
+
+        }
+
+        res.send("Giriş başarılı");
+
+    } catch (err) {
+
+        console.log(err);
+
+        res
+            .status(500)
+            .send("Sunucu hatası");
+
+    }
+
+});
+
+
+
+
 
 app.listen(3000, () => {
     console.log("Server çalışıyor");
