@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Harcama Takip - Dashboard</title>
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="harcamalar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="app-wrapper">
@@ -26,8 +26,8 @@
 
         <main class="content">
             <header class="main-header">
-                <h2>Gösterge paneli</h2>
-                <div class="user-info">Merhaba, Kullanıcı! <i class="fa-solid fa-circle-user"></i></div>
+                <h2>Gösterge Paneli</h2>
+                <div class="user-info">Merhaba, <span id="activeUsername">Kullanıcı</span>! <i class="fa-solid fa-circle-user"></i></div>
             </header>
 
             <div class="stats-grid">
@@ -35,68 +35,101 @@
                     <i class="fa-solid fa-coins"></i>
                     <div class="stat-info">
                         <span>Toplam Harcama</span>
-                        <strong>₺ 4,230.00</strong>
+                        <strong id="toplamHarcama">₺ 0.00</strong>
                     </div>
                 </div>
                 <div class="stat-card">
                     <i class="fa-solid fa-calendar-check"></i>
                     <div class="stat-info">
                         <span>Bu Ayki Harcama</span>
-                        <strong>₺ 1,250.00</strong>
+                        <strong id="buAykiHarcama">₺ 0.00</strong>
                     </div>
                 </div>
                 <div class="stat-card">
                     <i class="fa-solid fa-vault"></i>
                     <div class="stat-info">
-                        <span>Kalan Bütçe</span>
-                        <strong>₺ 1,770.00</strong>
+                        <span>Toplam İşlem</span>
+                        <strong id="toplamIslem">0 Kayıt</strong>
                     </div>
                 </div>
             </div>
 
-            <div class="data-grid">
-                <div class="table-container">
-                    <div class="table-header">
-                        <button class="btn-add"><i class="fa-solid fa-plus"></i> Harcama Ekle</button>
-                        <select class="filter-select">
-                            <option>Kategoriye Göre Filtrele</option>
-                            <option>Yemek</option>
-                            <option>Ulaşım</option>
-                        </select>
-                    </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Tarih</th>
-                                <th>Kategori</th>
-                                <th>Açıklama</th>
-                                <th>Tutar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>24.03.2026</td>
-                                <td>Ulaşım</td>
-                                <td>Otobüs Bileti</td>
-                                <td>₺ 50.00</td>
-                            </tr>
-                            <tr>
-                                <td>23.03.2026</td>
-                                <td>Alışveriş</td>
-                                <td>Market Alışverişi</td>
-                                <td>₺ 320.00</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="table-container">
+                <div class="table-header" style="display:flex; gap:10px; align-items:center; margin-bottom:10px;">
+                    <button class="btn-add" id="btnHarcamaEkle">
+                        <i class="fa-solid fa-plus"></i> Harcama Ekle
+                    </button>
+                    <select class="filter-select" id="kategoriFilter">
+                        <option value="">Kategoriye Göre Filtrele</option>
+                        <option value="Yemek">Yemek</option>
+                        <option value="Alışveriş">Alışveriş</option>
+                        <option value="Ulaşım">Ulaşım</option>
+                        <option value="Eğlence">Eğlence</option>
+                        <option value="Sağlık">Sağlık</option>
+                        <option value="Fatura">Fatura</option>
+                        <option value="Diğer">Diğer</option>
+                    </select>
                 </div>
-
-                <div class="chart-card">
-                    <h3>Harcama Dağılımı</h3>
-                    <canvas id="expenseChart"></canvas>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tarih</th>
+                            <th>Kategori</th>
+                            <th>Açıklama</th>
+                            <th>Tutar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dashboardTablo"></tbody>
+                </table>
+                <div id="bosKayit" style="display:none; text-align:center; padding:40px; color:#b2bec3;">
+                    <i class="fa-solid fa-folder-open" style="font-size:36px; margin-bottom:10px; display:block;"></i>
+                    <p>Henüz harcama kaydı yok.</p>
                 </div>
             </div>
         </main>
     </div>
-    <script src="index.js"></script>
+
+    <!-- Modal: Harcama Ekle -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-plus"></i> Yeni Harcama</h3>
+                <button class="modal-close" id="modalKapat"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="harcamaForm">
+                <div class="form-group">
+                    <label>Tarih</label>
+                    <input type="date" id="harcamaTarih" required>
+                </div>
+                <div class="form-group">
+                    <label>Kategori</label>
+                    <select id="harcamaKategori" required>
+                        <option value="">Kategori seçin</option>
+                        <option value="Yemek">Yemek</option>
+                        <option value="Alışveriş">Alışveriş</option>
+                        <option value="Ulaşım">Ulaşım</option>
+                        <option value="Eğlence">Eğlence</option>
+                        <option value="Sağlık">Sağlık</option>
+                        <option value="Fatura">Fatura</option>
+                        <option value="Diğer">Diğer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Açıklama</label>
+                    <input type="text" id="harcamaAciklama" placeholder="Harcama açıklaması..." required>
+                </div>
+                <div class="form-group">
+                    <label>Tutar (₺)</label>
+                    <input type="number" id="harcamaTutar" placeholder="0.00" min="0.01" step="0.01" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" id="btnIptal">İptal</button>
+                    <button type="submit" class="btn-save"><i class="fa-solid fa-floppy-disk"></i> Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/index.js"></script>
 </body>
 </html>
